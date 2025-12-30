@@ -2,6 +2,7 @@
     "name": "marbobley/entities-visitor-bundle",
     "description": "manage visitor connexion",
     "type": "symfony-bundle",
+    "license": "MIT",
     "autoload": {
         "psr-4": {
             "Marbobley\\EntitiesVisitorBundle\\": "src/"
