@@ -14,5 +14,7 @@
             "email": "fournier.wilf@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "doctrine/orm": "^3.6"
+    }
 }
