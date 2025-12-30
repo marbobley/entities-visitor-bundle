@@ -1,6 +1,6 @@
 {
     "name": "marbobley/entities-visitor-bundle",
-    "description": "manage visitor connexion",
+    "description": "Manage visitor connexion information in Doctrine entities",
     "type": "symfony-bundle",
     "license": "MIT",
     "autoload": {
