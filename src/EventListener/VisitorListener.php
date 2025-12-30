@@ -32,7 +32,7 @@ final readonly class VisitorListener
         $method = $request->getMethod();
 
         // Log détaillé pour savoir quel contrôleur a déclenché l'action
-        $this->logger->info('Visitor Information', [
+        $this->logger->debug('Visitor Information', [
             'ip' => $clientIP,
             'method' => $method,
             'path' => $path,
