@@ -7,5 +7,7 @@ abstract class VisitorInformation{
     public string $userAgent;
     public \DateTimeImmutable $visitedAt;
 
+    public string $method;
+
 
 }
