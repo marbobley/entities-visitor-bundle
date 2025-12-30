@@ -7,5 +7,6 @@
         <field name="ip" column="ip" type="string" />
         <field name="userAgent" column="user_agent" type="string" />
         <field name="visitedAt" column="visited_at" type="datetime_immutable"/>
+        <field name="method" column="method" type="string"/>
     </mapped-superclass>
 </doctrine-mapping>
