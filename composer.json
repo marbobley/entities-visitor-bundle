@@ -8,6 +8,11 @@
             "Marbobley\\EntitiesVisitorBundle\\": "src/"
         }
     },
+    "autoload-dev": {
+        "psr-4": {
+            "Marbobley\\EntitiesVisitorBundle\\Tests\\": "tests/"
+        }
+    },
     "authors": [
         {
             "name": "Marbobley",
@@ -16,5 +21,8 @@
     ],
     "require": {
         "doctrine/orm": "^3.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^12.5"
     }
 }
