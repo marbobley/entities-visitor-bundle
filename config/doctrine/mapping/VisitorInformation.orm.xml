@@ -4,9 +4,12 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                   http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
     <mapped-superclass name="Marbobley\EntitiesVisitorBundle\Model\VisitorInformation">
-        <field name="ip" column="ip" type="string" />
-        <field name="userAgent" column="user_agent" type="string" />
+        <field name="ip" column="ip"/>
+        <field name="userAgent" column="user_agent"/>
         <field name="visitedAt" column="visited_at" type="datetime_immutable"/>
-        <field name="method" column="method" type="string"/>
+        <field name="method" column="method"/>
+        <field name="path" column="path"/>
+        <field name="route" column="route"/>
+        <field name="controller" column="controller"/>
     </mapped-superclass>
 </doctrine-mapping>
