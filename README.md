@@ -1,5 +1,5 @@
 # entities-visitor-bundle
-Package to manage visitors with DB persistence
+Package to manage visitors with DB persistence in Symfony
 
 ## Installation
 composer require marbobley/entities-visitor-bundle
@@ -18,6 +18,9 @@ Column saved :
 * user Agent
 * visited at 
 * method 
+* route
+* control
+* path
 
 ## Example 
 ````
