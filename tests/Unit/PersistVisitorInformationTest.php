@@ -12,7 +12,7 @@ class PersistVisitorInformationTest extends TestCase
     public function testSave()
     {
         $entityManager = $this->createMock(EntityManagerInterface::class);
-        $visitor = $this->getMockForAbstractClass(VisitorInformation::class);
+        $visitor = new class extends VisitorInformation {};
 
         $entityManager->expects($this->once())
             ->method('persist')

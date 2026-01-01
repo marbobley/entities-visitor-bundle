@@ -3,8 +3,7 @@
 namespace Marbobley\EntitiesVisitorBundle\Tests\Unit;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\Persistence\Mapping\ClassMetadata;
-use Doctrine\Persistence\Mapping\ClassMetadataFactory;
+use Doctrine\ORM\Mapping\ClassMetadataFactory;
 use Marbobley\EntitiesVisitorBundle\Domain\ServiceImplementation\ResolverConcreteVisitorInformation;
 use Marbobley\EntitiesVisitorBundle\Model\VisitorInformation;
 use PHPUnit\Framework\TestCase;
@@ -30,7 +29,7 @@ class ResolverConcreteVisitorInformationTest extends TestCase
         $entityManager = $this->createMock(EntityManagerInterface::class);
         $metadataFactory = $this->createMock(ClassMetadataFactory::class);
 
-        $metadata = $this->createMock(ClassMetadata::class);
+        $metadata = $this->createMock(\Doctrine\ORM\Mapping\ClassMetadata::class);
         $metadata->method('getName')->willReturn(ConcreteVisitorInformation::class);
 
         $entityManager->method('getMetadataFactory')->willReturn($metadataFactory);
