@@ -8,6 +8,9 @@ abstract class VisitorInformation{
     public \DateTimeImmutable $visitedAt;
 
     public string $method;
+    public string $path;
+    public string $route;
+    public string $controller;
 
 
 }

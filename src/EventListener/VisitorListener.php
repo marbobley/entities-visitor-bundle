@@ -2,9 +2,10 @@
 
 namespace Marbobley\EntitiesVisitorBundle\EventListener;
 
+use Marbobley\EntitiesVisitorBundle\Domain\ServiceImplementation\PersistVisitorInformation;
+use Marbobley\EntitiesVisitorBundle\Domain\ServiceImplementation\ResolverConcreteVisitorInformation;
 use Marbobley\EntitiesVisitorBundle\Model\VisitorInformation as VisitorInformationModel;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityManagerInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
@@ -13,7 +14,9 @@ final readonly class VisitorListener
 {
     const UNKNOWN = 'Unknown';
 
-    public function __construct(private LoggerInterface $logger, private EntityManagerInterface $manager)
+    public function __construct(private LoggerInterface $logger,
+                                private PersistVisitorInformation $persistVisitorInformation,
+                                private ResolverConcreteVisitorInformation $concreteVisitorInformation)
     {
     }
 
@@ -43,7 +46,7 @@ final readonly class VisitorListener
             'userAgent' => $userAgent,
         ]);
 
-        $entityClass = $this->resolveConcreteVisitorInformationClass();
+        $entityClass = $this->concreteVisitorInformation->resolveConcreteVisitorInformationClass();
         if ($entityClass === null) {
             // Aucune entité concrète trouvée dans l'application qui étend le modèle du bundle
             $this->logger->warning('Aucune entité concrete pour VisitorInformation n’a été trouvée. Persistance ignorée.', [
@@ -57,25 +60,9 @@ final readonly class VisitorListener
         $visitor->userAgent = $userAgent;
         $visitor->visitedAt = new DateTimeImmutable();
         $visitor->method = $method;
-        $this->manager->persist($visitor);
-        $this->manager->flush();
-    }
-
-    /**
-     * Trouve la classe d’entité (côté application) qui étend le modèle
-     * Marbobley\EntitiesVisitorBundle\Model\VisitorInformation, sans créer de
-     * dépendance directe vers App\Entity.
-     */
-    private function resolveConcreteVisitorInformationClass(): ?string
-    {
-        $metadataFactory = $this->manager->getMetadataFactory();
-        foreach ($metadataFactory->getAllMetadata() as $metadata) {
-            $className = $metadata->getName();
-            if (is_subclass_of($className, VisitorInformationModel::class)) {
-                return $className;
-            }
-        }
-
-        return null;
+        $visitor->route = $route;
+        $visitor->path = $path;
+        $visitor->controller = $controller;
+        $this->persistVisitorInformation->save($visitor);
     }
 }
