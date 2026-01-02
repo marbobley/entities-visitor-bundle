@@ -30,7 +30,8 @@ class VisitorListenerTest extends TestCase
         $this->listener = new VisitorListener(
             $this->logger,
             $this->persistVisitorInformation,
-            $this->resolverConcreteVisitorInformation
+            $this->resolverConcreteVisitorInformation,
+            true
         );
     }
 
