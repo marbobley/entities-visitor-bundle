@@ -88,6 +88,31 @@ class VisitorListenerTest extends TestCase
 
         $this->listener->onTerminateEvent($event);
     }
+
+    public function testOnTerminateEventWhenDisabled()
+    {
+        $listener = new VisitorListener(
+            $this->logger,
+            $this->persistVisitorInformation,
+            $this->resolverConcreteVisitorInformation,
+            false
+        );
+
+        $request = new Request();
+        $event = new TerminateEvent(
+            $this->createMock(HttpKernelInterface::class),
+            $request,
+            new Response()
+        );
+
+        $this->logger->expects($this->never())
+            ->method('debug');
+
+        $this->persistVisitorInformation->expects($this->never())
+            ->method('save');
+
+        $listener->onTerminateEvent($event);
+    }
 }
 
 class ConcreteVisitorInformationForListener extends VisitorInformation {}
