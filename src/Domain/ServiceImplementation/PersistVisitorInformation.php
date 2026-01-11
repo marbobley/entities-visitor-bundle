@@ -7,7 +7,7 @@ use Marbobley\EntitiesVisitorBundle\Model\VisitorInformation;
 
 class PersistVisitorInformation
 {
-    public function __construct(private EntityManagerInterface $manager)
+    public function __construct(private readonly EntityManagerInterface $manager)
     {
     }
 
