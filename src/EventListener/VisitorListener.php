@@ -7,6 +7,7 @@ use Marbobley\EntitiesVisitorBundle\Domain\ServiceImplementation\ResolverConcret
 use Marbobley\EntitiesVisitorBundle\Model\VisitorInformation as VisitorInformationModel;
 use DateTimeImmutable;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\Attribute\AsEventListener;
 use Symfony\Component\HttpKernel\Event\TerminateEvent;
 
@@ -16,13 +17,18 @@ final readonly class VisitorListener
 
     public function __construct(private LoggerInterface $logger,
                                 private PersistVisitorInformation $persistVisitorInformation,
-                                private ResolverConcreteVisitorInformation $concreteVisitorInformation)
+                                private ResolverConcreteVisitorInformation $concreteVisitorInformation,
+                                #[Autowire(param: 'entities_visitor_bundle.enable')]
+                                private bool $enable)
     {
     }
 
     #[AsEventListener]
     public function onTerminateEvent(TerminateEvent $event): void
     {
+        if(!$this->enable)
+            return;
+
         $request = $event->getRequest();
 
         // Informations de base
